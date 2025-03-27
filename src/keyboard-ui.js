@@ -6,11 +6,9 @@ export class KeyboardUI {
             'KeyA': { element: null, pressed: false },
             'KeyS': { element: null, pressed: false },
             'KeyD': { element: null, pressed: false },
-            'KeyQ': { element: null, pressed: false },
             'KeyE': { element: null, pressed: false },
             'Tab': { element: null, pressed: false },
             'Escape': { element: null, pressed: false },
-            'KeyR': { element: null, pressed: false },
             'Delete': { element: null, pressed: false }
         };
         
@@ -67,10 +65,6 @@ export class KeyboardUI {
         specialRow.style.gap = '5px';
         specialRow.style.marginTop = '10px';
         
-        // Create Q key
-        this.keys['KeyQ'].element = this.createKey('Q');
-        specialRow.appendChild(this.keys['KeyQ'].element);
-        
         // Create E key
         this.keys['KeyE'].element = this.createKey('E');
         specialRow.appendChild(this.keys['KeyE'].element);
@@ -78,10 +72,6 @@ export class KeyboardUI {
         // Create Tab key
         this.keys['Tab'].element = this.createKey('Tab', 60);
         specialRow.appendChild(this.keys['Tab'].element);
-        
-        // Create R key
-        this.keys['KeyR'].element = this.createKey('R');
-        specialRow.appendChild(this.keys['KeyR'].element);
         
         // Create Del key
         this.keys['Delete'].element = this.createKey('Del', 50);

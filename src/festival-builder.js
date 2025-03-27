@@ -36,9 +36,9 @@ class FestivalBuilder {
         this.pointerLockControls = new PointerLockControls(this.camera, document.body);
         this.flyControls = new FlyControls(this.camera, this.renderer.domElement);
         this.flyControls.movementSpeed = 15;
-        this.flyControls.rollSpeed = Math.PI / 6;
+        this.flyControls.rollSpeed = 0; // Completely disable roll
         this.flyControls.autoForward = false;
-        this.flyControls.dragToLook = true;
+        this.flyControls.dragToLook = false; // Allow cursor to control camera without dragging
         this.flyControls.enabled = false;
         
         // Current active controls
@@ -339,6 +339,9 @@ class FestivalBuilder {
             // Enable pointer lock controls
             this.pointerLockControls.enabled = true;
             this.controls = this.pointerLockControls;
+            
+            // Lock the pointer to enable first-person controls
+            this.pointerLockControls.lock();
         }
     }
     
@@ -1105,9 +1108,13 @@ class FestivalBuilder {
             
             // Handle dragged objects
             if (this.draggedObject) {
-                // Temporarily disable fly controls to prevent camera movement while dragging
+                // Completely disable camera movement while dragging
                 const wasEnabled = this.flyControls.enabled;
                 this.flyControls.enabled = false;
+                
+                // Store current mouse position to prevent camera movement
+                const currentMouseX = this.mouse.x;
+                const currentMouseY = this.mouse.y;
                 
                 this.raycaster.setFromCamera(this.mouse, this.camera);
                 const intersects = this.raycaster.intersectObjects(this.scene.children, true);

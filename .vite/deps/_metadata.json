@@ -1,0 +1,41 @@
+{
+  "hash": "98f44af0",
+  "browserHash": "f5c0e050",
+  "optimized": {
+    "three": {
+      "src": "../../node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "6ee49a10",
+      "needsInterop": false
+    },
+    "three/examples/jsm/loaders/GLTFLoader.js": {
+      "src": "../../node_modules/three/examples/jsm/loaders/GLTFLoader.js",
+      "file": "three_examples_jsm_loaders_GLTFLoader__js.js",
+      "fileHash": "8aae70f0",
+      "needsInterop": false
+    },
+    "three/examples/jsm/loaders/DRACOLoader.js": {
+      "src": "../../node_modules/three/examples/jsm/loaders/DRACOLoader.js",
+      "file": "three_examples_jsm_loaders_DRACOLoader__js.js",
+      "fileHash": "13c6eec9",
+      "needsInterop": false
+    },
+    "cannon-es": {
+      "src": "../../node_modules/cannon-es/dist/cannon-es.js",
+      "file": "cannon-es.js",
+      "fileHash": "f2b17ee3",
+      "needsInterop": false
+    },
+    "three/examples/jsm/controls/PointerLockControls.js": {
+      "src": "../../node_modules/three/examples/jsm/controls/PointerLockControls.js",
+      "file": "three_examples_jsm_controls_PointerLockControls__js.js",
+      "fileHash": "9c00e176",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-PII7LJ7Q": {
+      "file": "chunk-PII7LJ7Q.js"
+    }
+  }
+}

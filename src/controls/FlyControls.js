@@ -32,7 +32,7 @@ class FlyControls extends EventDispatcher { // Changed from Controls
 
 		// internals
 
-		this._moveState = { up: 0, down: 0, left: 0, right: 0, forward: 0, back: 0, pitchUp: 0, pitchDown: 0, yawLeft: 0, yawRight: 0, rollLeft: 0, rollRight: 0 };
+		this._moveState = { up: 0, down: 0, left: 0, right: 0, forward: 0, back: 0, pitchUp: 0, pitchDown: 0, yawLeft: 0, yawRight: 0 };
 		this._moveVector = new Vector3( 0, 0, 0 );
 		this._rotationVector = new Vector3( 0, 0, 0 );
 		this._lastQuaternion = new Quaternion();
@@ -138,7 +138,7 @@ class FlyControls extends EventDispatcher { // Changed from Controls
 
 		this._rotationVector.x = ( - this._moveState.pitchDown + this._moveState.pitchUp );
 		this._rotationVector.y = ( - this._moveState.yawRight + this._moveState.yawLeft );
-		this._rotationVector.z = ( - this._moveState.rollRight + this._moveState.rollLeft );
+		this._rotationVector.z = 0; // Disable roll completely
 
 		//console.log( 'rotate:', [ this._rotationVector.x, this._rotationVector.y, this._rotationVector.z ] );
 
@@ -185,7 +185,6 @@ function onKeyDown( event ) {
 		case 'KeyA': this._moveState.left = 1; break;
 		case 'KeyD': this._moveState.right = 1; break;
 
-		case 'KeyR': this._moveState.up = 1; break;
 		case 'KeyF': this._moveState.down = 1; break;
 
 		case 'ArrowUp': this._moveState.pitchUp = 1; break;
@@ -194,8 +193,7 @@ function onKeyDown( event ) {
 		case 'ArrowLeft': this._moveState.yawLeft = 1; break;
 		case 'ArrowRight': this._moveState.yawRight = 1; break;
 
-		case 'KeyQ': this._moveState.rollLeft = 1; break;
-		case 'KeyE': this._moveState.rollRight = 1; break;
+		case 'KeyE': this._moveState.up = 1; break;
 
 	}
 
@@ -219,7 +217,6 @@ function onKeyUp( event ) {
 		case 'KeyA': this._moveState.left = 0; break;
 		case 'KeyD': this._moveState.right = 0; break;
 
-		case 'KeyR': this._moveState.up = 0; break;
 		case 'KeyF': this._moveState.down = 0; break;
 
 		case 'ArrowUp': this._moveState.pitchUp = 0; break;
@@ -228,8 +225,7 @@ function onKeyUp( event ) {
 		case 'ArrowLeft': this._moveState.yawLeft = 0; break;
 		case 'ArrowRight': this._moveState.yawRight = 0; break;
 
-		case 'KeyQ': this._moveState.rollLeft = 0; break;
-		case 'KeyE': this._moveState.rollRight = 0; break;
+		case 'KeyE': this._moveState.up = 0; break;
 
 	}
 
