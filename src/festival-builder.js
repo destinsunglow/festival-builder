@@ -1111,52 +1111,54 @@ class FestivalBuilder {
         
         // Update player position based on physics
         if (!this.godMode) {
-            // Always apply movement forces in play mode, regardless of pointer lock
-            const moveSpeed = 10; // Reduced speed for better control
-            const inputVelocity = new THREE.Vector3();
-            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+            // DIRECT MOVEMENT APPROACH - no physics for walking
+            const moveSpeed = 0.15; // Direct movement speed
             
-            // Get camera direction
-            euler.setFromQuaternion(this.camera.quaternion);
+            // Get camera direction for movement relative to where we're looking
+            const cameraDirection = new THREE.Vector3();
+            this.camera.getWorldDirection(cameraDirection);
+            cameraDirection.y = 0; // Keep movement on the horizontal plane
+            cameraDirection.normalize();
             
-            // Set input velocity based on key presses
-            inputVelocity.set(0, 0, 0);
-            if (this.moveForward) inputVelocity.z = -moveSpeed;
-            if (this.moveBackward) inputVelocity.z = moveSpeed;
-            if (this.moveLeft) inputVelocity.x = -moveSpeed;
-            if (this.moveRight) inputVelocity.x = moveSpeed;
+            // Get right vector (perpendicular to camera direction)
+            const rightVector = new THREE.Vector3();
+            rightVector.crossVectors(new THREE.Vector3(0, 1, 0), cameraDirection).normalize();
             
-            // Apply gravity
+            // Calculate movement vector
+            const moveVector = new THREE.Vector3(0, 0, 0);
+            
+            if (this.moveForward) {
+                moveVector.add(cameraDirection.clone().multiplyScalar(moveSpeed));
+            }
+            if (this.moveBackward) {
+                moveVector.add(cameraDirection.clone().multiplyScalar(-moveSpeed));
+            }
+            if (this.moveLeft) {
+                moveVector.add(rightVector.clone().multiplyScalar(moveSpeed));
+            }
+            if (this.moveRight) {
+                moveVector.add(rightVector.clone().multiplyScalar(-moveSpeed));
+            }
+            
+            // Apply gravity (simplified)
             this.playerBody.velocity.y -= 9.8 * deltaTime;
             
-            // Apply camera rotation to movement direction
-            inputVelocity.applyEuler(euler);
-            
-            // Apply movement to player body - use damping to prevent sliding
-            const damping = 0.9;
-            this.playerBody.velocity.x = inputVelocity.x + (this.playerBody.velocity.x * (1 - damping));
-            this.playerBody.velocity.z = inputVelocity.z + (this.playerBody.velocity.z * (1 - damping));
-            
-            // Force minimum velocity for movement to be noticeable
+            // Log movement for debugging
             if (this.moveForward || this.moveBackward || this.moveLeft || this.moveRight) {
-                // Ensure velocity is at least at minimum threshold
-                if (Math.abs(this.playerBody.velocity.x) < 0.1 && inputVelocity.x !== 0) {
-                    this.playerBody.velocity.x = inputVelocity.x;
-                }
-                if (Math.abs(this.playerBody.velocity.z) < 0.1 && inputVelocity.z !== 0) {
-                    this.playerBody.velocity.z = inputVelocity.z;
-                }
-                
                 console.log('Moving:', {
                     forward: this.moveForward,
                     backward: this.moveBackward,
                     left: this.moveLeft,
                     right: this.moveRight,
-                    velocity: this.playerBody.velocity
+                    moveVector: moveVector
                 });
+                
+                // Apply movement directly to player position
+                this.playerBody.position.x += moveVector.x;
+                this.playerBody.position.z += moveVector.z;
             }
             
-            // Sync camera to physics body
+            // Sync camera to player body
             this.pointerLockControls.getObject().position.copy(this.playerBody.position);
             this.pointerLockControls.getObject().position.y += 1.1; // Eye height
         } else {
