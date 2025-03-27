@@ -323,6 +323,9 @@ class FestivalBuilder {
             // Enable fly controls
             this.flyControls.enabled = true;
             this.controls = this.flyControls;
+            
+            // Reset movement flags
+            this.resetMovementFlags();
         } else {
             // Switch to Play Mode
             this.modeIndicator.textContent = 'Play Mode';
@@ -342,7 +345,20 @@ class FestivalBuilder {
             
             // Lock the pointer to enable first-person controls
             this.pointerLockControls.lock();
+            
+            // Reset movement flags
+            this.resetMovementFlags();
         }
+    }
+    
+    resetMovementFlags() {
+        // Reset all movement flags
+        this.moveForward = false;
+        this.moveBackward = false;
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.moveUp = false;
+        this.moveDown = false;
     }
     
     createObject(type) {
@@ -1031,47 +1047,45 @@ class FestivalBuilder {
         
         // Update player position based on physics
         if (!this.godMode) {
-            // Apply movement forces in play mode
-            if (this.pointerLockControls.isLocked) {
-                const moveSpeed = 10; // Reduced speed for better control
-                const inputVelocity = new THREE.Vector3();
-                const euler = new THREE.Euler(0, 0, 0, 'YXZ');
-                
-                // Get camera direction
-                euler.setFromQuaternion(this.camera.quaternion);
-                
-                // Set input velocity based on key presses
-                inputVelocity.set(0, 0, 0);
-                if (this.moveForward) inputVelocity.z = -moveSpeed;
-                if (this.moveBackward) inputVelocity.z = moveSpeed;
-                if (this.moveLeft) inputVelocity.x = -moveSpeed;
-                if (this.moveRight) inputVelocity.x = moveSpeed;
-                
-                // Apply gravity
-                this.playerBody.velocity.y -= 9.8 * deltaTime;
-                
-                // Apply camera rotation to movement direction
-                inputVelocity.applyEuler(euler);
-                
-                // Apply movement to player body
-                this.playerBody.velocity.x = inputVelocity.x;
-                this.playerBody.velocity.z = inputVelocity.z;
-                
-                // Log movement for debugging
-                if (this.moveForward || this.moveBackward || this.moveLeft || this.moveRight) {
-                    console.log('Moving:', {
-                        forward: this.moveForward,
-                        backward: this.moveBackward,
-                        left: this.moveLeft,
-                        right: this.moveRight,
-                        velocity: this.playerBody.velocity
-                    });
-                }
-                
-                // Sync camera to physics body
-                this.pointerLockControls.getObject().position.copy(this.playerBody.position);
-                this.pointerLockControls.getObject().position.y += 1.1; // Eye height
+            // Always apply movement forces in play mode, regardless of pointer lock
+            const moveSpeed = 10; // Reduced speed for better control
+            const inputVelocity = new THREE.Vector3();
+            const euler = new THREE.Euler(0, 0, 0, 'YXZ');
+            
+            // Get camera direction
+            euler.setFromQuaternion(this.camera.quaternion);
+            
+            // Set input velocity based on key presses
+            inputVelocity.set(0, 0, 0);
+            if (this.moveForward) inputVelocity.z = -moveSpeed;
+            if (this.moveBackward) inputVelocity.z = moveSpeed;
+            if (this.moveLeft) inputVelocity.x = -moveSpeed;
+            if (this.moveRight) inputVelocity.x = moveSpeed;
+            
+            // Apply gravity
+            this.playerBody.velocity.y -= 9.8 * deltaTime;
+            
+            // Apply camera rotation to movement direction
+            inputVelocity.applyEuler(euler);
+            
+            // Apply movement to player body
+            this.playerBody.velocity.x = inputVelocity.x;
+            this.playerBody.velocity.z = inputVelocity.z;
+            
+            // Log movement for debugging
+            if (this.moveForward || this.moveBackward || this.moveLeft || this.moveRight) {
+                console.log('Moving:', {
+                    forward: this.moveForward,
+                    backward: this.moveBackward,
+                    left: this.moveLeft,
+                    right: this.moveRight,
+                    velocity: this.playerBody.velocity
+                });
             }
+            
+            // Sync camera to physics body
+            this.pointerLockControls.getObject().position.copy(this.playerBody.position);
+            this.pointerLockControls.getObject().position.y += 1.1; // Eye height
         } else {
             // Update fly controls in god mode
             this.flyControls.update(deltaTime);
