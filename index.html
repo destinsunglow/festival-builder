@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Glow Festival Builder</title>
+    <style>
+        body { 
+            margin: 0; 
+            overflow: hidden; 
+            font-family: Arial, sans-serif;
+            background-color: #000;
+        }
+        canvas.webgl {
+            position: absolute;
+            top: 0;
+            left: 0;
+            outline: none;
+        }
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            z-index: 100;
+            text-shadow: 1px 1px 1px black;
+        }
+        #controls-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            z-index: 100;
+            text-shadow: 1px 1px 1px black;
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 5px;
+            pointer-events: none;
+        }
+        #mode-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+    </style>
+  <script type="module" crossorigin src="/festival-builder/assets/index-0584075a.js"></script>
+  <link rel="stylesheet" href="/festival-builder/assets/index-289f5ce2.css">
+</head>
+<body>
+    <canvas class="webgl"></canvas>
+    
+    <div id="info">Sun Glow Festival Builder</div>
+    
+    <div id="mode-indicator">Play Mode</div>
+    
+    
+</body>
+</html>
