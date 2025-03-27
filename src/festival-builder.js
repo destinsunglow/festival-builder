@@ -96,6 +96,70 @@ class FestivalBuilder {
         
         // Initialize
         this.init();
+        
+        // Add a welcome sign
+        this.addWelcomeSign();
+    }
+    
+    addWelcomeSign() {
+        // Create a welcome sign in front of the player
+        const group = new THREE.Group();
+        
+        // Create a sign post
+        const signPostGeometry = new THREE.CylinderGeometry(0.1, 0.1, 3, 8);
+        const signPostMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+        const post = new THREE.Mesh(signPostGeometry, signPostMaterial);
+        post.position.y = 1.5;
+        post.castShadow = true;
+        post.receiveShadow = true;
+        group.add(post);
+        
+        // Create sign board
+        const signGeometry = new THREE.BoxGeometry(2, 1, 0.1);
+        const signMaterial = new THREE.MeshStandardMaterial({ color: 0xFFD700 });
+        const signBoard = new THREE.Mesh(signGeometry, signMaterial);
+        signBoard.position.set(0, 2.5, 0);
+        signBoard.castShadow = true;
+        signBoard.receiveShadow = true;
+        group.add(signBoard);
+        
+        // Add text to sign
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 256;
+        const context = canvas.getContext('2d');
+        context.fillStyle = '#000000';
+        context.font = 'Bold 48px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText('WELCOME', 256, 80);
+        context.font = 'Bold 32px Arial';
+        context.fillText('Walk up to me!', 256, 150);
+        
+        const textTexture = new THREE.CanvasTexture(canvas);
+        const textMaterial = new THREE.MeshBasicMaterial({
+            map: textTexture,
+            transparent: true
+        });
+        
+        const textGeometry = new THREE.PlaneGeometry(1.9, 0.9);
+        const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+        textMesh.position.set(0, 2.5, 0.06);
+        group.add(textMesh);
+        
+        // Position it in front of the player
+        group.position.set(0, 0, -10);
+        
+        // Add to scene and objects array
+        this.scene.add(group);
+        this.objects.push(group);
+        
+        // Store object type
+        group.userData = {
+            type: 'welcome-sign',
+            color: 0xFFD700,
+            scale: 1
+        };
     }
     
     init() {
@@ -1068,12 +1132,21 @@ class FestivalBuilder {
             // Apply camera rotation to movement direction
             inputVelocity.applyEuler(euler);
             
-            // Apply movement to player body
-            this.playerBody.velocity.x = inputVelocity.x;
-            this.playerBody.velocity.z = inputVelocity.z;
+            // Apply movement to player body - use damping to prevent sliding
+            const damping = 0.9;
+            this.playerBody.velocity.x = inputVelocity.x + (this.playerBody.velocity.x * (1 - damping));
+            this.playerBody.velocity.z = inputVelocity.z + (this.playerBody.velocity.z * (1 - damping));
             
-            // Log movement for debugging
+            // Force minimum velocity for movement to be noticeable
             if (this.moveForward || this.moveBackward || this.moveLeft || this.moveRight) {
+                // Ensure velocity is at least at minimum threshold
+                if (Math.abs(this.playerBody.velocity.x) < 0.1 && inputVelocity.x !== 0) {
+                    this.playerBody.velocity.x = inputVelocity.x;
+                }
+                if (Math.abs(this.playerBody.velocity.z) < 0.1 && inputVelocity.z !== 0) {
+                    this.playerBody.velocity.z = inputVelocity.z;
+                }
+                
                 console.log('Moving:', {
                     forward: this.moveForward,
                     backward: this.moveBackward,
