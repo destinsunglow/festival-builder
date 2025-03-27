@@ -33,9 +33,10 @@ export default class BaseGUI {
   }
 
   _setupMainGUI() {
-    this._gui.add(this._controls, 'enabled')
-      .name('Orbit controls')
-      .onChange(() => this._controls.reset());
+    // Commented out problematic control - incompatible with PointerLockControls
+    // this._gui.add(this._controls, 'enabled')
+    //   .name('Orbit controls')
+    //   .onChange(() => this._controls.reset());
 
     const fpsMeter = { visible: true };
     this._gui.add(fpsMeter, 'visible')

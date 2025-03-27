@@ -1,5 +1,5 @@
-import { Black } from "black-engine";
-import Scene2D from "./scene-2d/scene-2d";
+// import { Black } from "black-engine"; // Commented out
+// import Scene2D from "./scene-2d/scene-2d"; // Commented out
 import Scene3D from "./scene-3d/scene-3d";
 
 export default class MainScene {
@@ -12,7 +12,7 @@ export default class MainScene {
   }
 
   afterAssetsLoad() {
-    Black.stage.addChild(this._scene2D);
+    // Black.stage.addChild(this._scene2D); // Commented out
     this._scene.add(this._scene3D);
   }
 
@@ -22,18 +22,18 @@ export default class MainScene {
 
   _init() {
     this._scene3D = new Scene3D(this._camera);
-    this._scene2D = new Scene2D();
+    // this._scene2D = new Scene2D(); // Commented out
 
-    this._initSignals();
+    // this._initSignals(); // Commented out
   }
 
-  _initSignals() {
-    this._scene2D.on('spawn_click', () => {
-      this._scene3D.createItem();
-    });
-
-    this._scene2D.on('reset_click', () => {
-      this._scene3D.resetItems();
-    });
-  }
+  // _initSignals() { // Commented out entire method
+  //   this._scene2D.on('spawn_click', () => {
+  //     this._scene3D.createItem();
+  //   });
+  //
+  //   this._scene2D.on('reset_click', () => {
+  //     this._scene3D.resetItems();
+  //   });
+  // }
 }

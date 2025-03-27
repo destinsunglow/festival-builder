@@ -1,0 +1,328 @@
+{
+  "stages": {
+    "main-stage": {
+      "name": "Main Stage",
+      "dimensions": {
+        "width": 30,
+        "height": 15,
+        "depth": 20
+      },
+      "color": "#333333",
+      "description": "Large main performance stage with roof and backdrop",
+      "capacity": 10000,
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      }
+    },
+    "side-stage": {
+      "name": "Side Stage",
+      "dimensions": {
+        "width": 20,
+        "height": 8,
+        "depth": 15
+      },
+      "color": "#444444",
+      "description": "Medium-sized secondary performance stage",
+      "capacity": 5000,
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      }
+    },
+    "dj-booth": {
+      "name": "DJ Booth",
+      "dimensions": {
+        "width": 5,
+        "height": 3,
+        "depth": 5
+      },
+      "color": "#222222",
+      "description": "Small DJ performance booth with equipment",
+      "capacity": 500,
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      }
+    },
+    "speaker-stack": {
+      "name": "Speaker Stack",
+      "dimensions": {
+        "width": 2,
+        "height": 4,
+        "depth": 2
+      },
+      "color": "#111111",
+      "description": "High-powered speaker system",
+      "physics": {
+        "mass": 100,
+        "fixed": false
+      }
+    }
+  },
+  "attractions": {
+    "ferris-wheel": {
+      "name": "Ferris Wheel",
+      "dimensions": {
+        "width": 30,
+        "height": 30,
+        "depth": 5
+      },
+      "color": "#FF5555",
+      "description": "Large Ferris wheel attraction",
+      "capacity": 64,
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      },
+      "animation": {
+        "type": "rotation",
+        "axis": "z",
+        "speed": 0.2
+      }
+    },
+    "food-stand": {
+      "name": "Food Stand",
+      "dimensions": {
+        "width": 6,
+        "height": 3,
+        "depth": 4
+      },
+      "color": "#8B4513",
+      "description": "Food vendor booth",
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      }
+    },
+    "merch-booth": {
+      "name": "Merchandise Booth",
+      "dimensions": {
+        "width": 6,
+        "height": 3,
+        "depth": 4
+      },
+      "color": "#4682B4",
+      "description": "Festival merchandise sales booth",
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      }
+    },
+    "art-installation": {
+      "name": "Art Installation",
+      "dimensions": {
+        "width": 8,
+        "height": 10,
+        "depth": 8
+      },
+      "color": "#9932CC",
+      "description": "Interactive art installation",
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      },
+      "animation": {
+        "type": "pulse",
+        "speed": 0.5
+      }
+    }
+  },
+  "camping": {
+    "tent": {
+      "name": "Tent",
+      "dimensions": {
+        "width": 3,
+        "height": 2,
+        "depth": 3
+      },
+      "color": "#88AACC",
+      "description": "Standard camping tent",
+      "capacity": 2,
+      "physics": {
+        "mass": 5,
+        "fixed": false
+      }
+    },
+    "rv": {
+      "name": "RV",
+      "dimensions": {
+        "width": 8,
+        "height": 3,
+        "depth": 3
+      },
+      "color": "#FFFFFF",
+      "description": "Recreational vehicle for camping",
+      "capacity": 6,
+      "physics": {
+        "mass": 1000,
+        "fixed": false
+      }
+    },
+    "toilet": {
+      "name": "Portable Toilet",
+      "dimensions": {
+        "width": 1.5,
+        "height": 2.5,
+        "depth": 1.5
+      },
+      "color": "#1E90FF",
+      "description": "Portable toilet facility",
+      "physics": {
+        "mass": 50,
+        "fixed": false
+      }
+    },
+    "campfire": {
+      "name": "Campfire",
+      "dimensions": {
+        "width": 1,
+        "height": 0.5,
+        "depth": 1
+      },
+      "color": "#FF4500",
+      "description": "Campfire for cooking and warmth",
+      "physics": {
+        "mass": 10,
+        "fixed": false
+      },
+      "light": {
+        "color": "#FF6600",
+        "intensity": 2,
+        "distance": 10,
+        "decay": 2
+      }
+    }
+  },
+  "infrastructure": {
+    "fence": {
+      "name": "Fence Section",
+      "dimensions": {
+        "width": 5,
+        "height": 2,
+        "depth": 0.1
+      },
+      "color": "#A9A9A9",
+      "description": "Barrier fence section",
+      "physics": {
+        "mass": 20,
+        "fixed": false
+      }
+    },
+    "road": {
+      "name": "Road Section",
+      "dimensions": {
+        "width": 5,
+        "height": 0.1,
+        "depth": 5
+      },
+      "color": "#696969",
+      "description": "Paved road section",
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      }
+    },
+    "sign": {
+      "name": "Sign",
+      "dimensions": {
+        "width": 2,
+        "height": 3,
+        "depth": 0.1
+      },
+      "color": "#FFD700",
+      "description": "Directional or informational sign",
+      "physics": {
+        "mass": 10,
+        "fixed": false
+      }
+    },
+    "flag": {
+      "name": "Flag",
+      "dimensions": {
+        "width": 1,
+        "height": 5,
+        "depth": 1
+      },
+      "color": "#FF0000",
+      "description": "Decorative or marker flag",
+      "physics": {
+        "mass": 5,
+        "fixed": false
+      },
+      "animation": {
+        "type": "wave",
+        "speed": 1.0
+      }
+    }
+  },
+  "people": {
+    "person": {
+      "name": "Person",
+      "dimensions": {
+        "width": 0.5,
+        "height": 1.8,
+        "depth": 0.5
+      },
+      "color": "#FFA07A",
+      "description": "Festival attendee",
+      "physics": {
+        "mass": 70,
+        "fixed": false
+      },
+      "animation": {
+        "type": "walk",
+        "speed": 1.0
+      }
+    },
+    "crowd": {
+      "name": "Crowd",
+      "dimensions": {
+        "width": 10,
+        "height": 1.8,
+        "depth": 10
+      },
+      "color": "#FFA07A",
+      "description": "Group of festival attendees",
+      "count": 50,
+      "physics": {
+        "mass": 0,
+        "fixed": true
+      },
+      "animation": {
+        "type": "sway",
+        "speed": 0.5
+      }
+    }
+  },
+  "vehicles": {
+    "car": {
+      "name": "Car",
+      "dimensions": {
+        "width": 2,
+        "height": 1.5,
+        "depth": 4.5
+      },
+      "color": "#C0C0C0",
+      "description": "Passenger vehicle",
+      "physics": {
+        "mass": 1500,
+        "fixed": false
+      }
+    },
+    "truck": {
+      "name": "Truck",
+      "dimensions": {
+        "width": 2.5,
+        "height": 3,
+        "depth": 7
+      },
+      "color": "#8B0000",
+      "description": "Utility truck",
+      "physics": {
+        "mass": 3000,
+        "fixed": false
+      }
+    }
+  }
+}
